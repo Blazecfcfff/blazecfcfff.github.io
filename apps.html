@@ -380,263 +380,182 @@
   </main>
 
   <script>
-    const roleQuestionsContainer = document.getElementById('roleQuestions');
-    const appliedSpotSelect = document.getElementById('appliedSpot');
+  const roleQuestionsContainer = document.getElementById('roleQuestions');
+  const appliedSpotSelect = document.getElementById('appliedSpot');
 
-    const questions = {
-      staff: [
-        {
-          label: 'What time zone are you in? *',
-          id: 'staffTimezone',
-          type: 'text',
-          required: true,
-          placeholder: ''
-        },
-        {
-          label: 'How many hours per day or week can you commit to staff duties? *',
-          id: 'staffHours',
-          type: 'text',
-          required: true,
-          placeholder: ''
-        },
-        {
-          label: 'Are you familiar with our server rules and community guidelines? *',
-          id: 'staffRules',
-          type: 'text',
-          required: true,
-          placeholder: ''
-        },
-        {
-          label: 'Why join our staff team *',
-          id: 'staffWhyJoin',
-          type: 'textarea',
-          required: true,
-          placeholder: ''
-        },
-        {
-          label: 'Experience with Minecraft servers *',
-          id: 'staffExperience',
-          type: 'textarea',
-          required: true,
-          placeholder: ''
-        },
-        {
-          label: 'Have you been a staff member on any other Minecraft server before? If yes, please describe your experience. *',
-          id: 'staffPrevious',
-          type: 'textarea',
-          required: true,
-          placeholder: ''
-        },
-        {
-          label: 'What qualities do you think a good staff member should have? *',
-          id: 'staffQualities',
-          type: 'textarea',
-          required: true,
-          placeholder: ''
-        },
-        {
-          label: 'Can you explain what griefing means? *',
-          id: 'staffGriefing',
-          type: 'textarea',
-          required: true,
-          placeholder: ''
-        },
-        {
-          label: 'How would you handle a player who is breaking the rules? *',
-          id: 'staffHandleBreakingRules',
-          type: 'textarea',
-          required: true,
-          placeholder: ''
-        },
-        {
-          label: 'Describe a time when you had to deal with a difficult person or situation. How did you handle it? *',
-          id: 'staffDifficultPerson',
-          type: 'textarea',
-          required: true,
-          placeholder: ''
-        },
-        {
-          label: 'What would you do if two players are arguing and causing disruption? *',
-          id: 'staffPlayersArguing',
-          type: 'textarea',
-          required: true,
-          placeholder: ''
-        },
-        {
-          label: 'How would you respond if a player accuses you of being unfair? *',
-          id: 'staffAccusedUnfair',
-          type: 'textarea',
-          required: true,
-          placeholder: ''
-        },
-        {
-          label: 'What would you do if a fellow staff member is breaking the rules? *',
-          id: 'staffFellowBreakingRules',
-          type: 'textarea',
-          required: true,
-          placeholder: ''
-        },
-        {
-          label: 'How would you handle a situation where a player is spamming chat or advertising? *',
-          id: 'staffSpamAdvertising',
-          type: 'textarea',
-          required: true,
-          placeholder: ''
-        },
-      ],
-    };
+  const questions = {
+    staff: [
+      { label: 'What time zone are you in? *', id: 'staffTimezone', type: 'text', required: true },
+      { label: 'How many hours per day or week can you commit to staff duties? *', id: 'staffHours', type: 'text', required: true },
+      { label: 'Are you familiar with our server rules and community guidelines? *', id: 'staffRules', type: 'text', required: true },
+      { label: 'Why join our staff team *', id: 'staffWhyJoin', type: 'textarea', required: true },
+      { label: 'Experience with Minecraft servers *', id: 'staffExperience', type: 'textarea', required: true },
+      { label: 'Have you been a staff member on any other Minecraft server before? If yes, please describe your experience. *', id: 'staffPrevious', type: 'textarea', required: true },
+      { label: 'What qualities do you think a good staff member should have? *', id: 'staffQualities', type: 'textarea', required: true },
+      { label: 'Can you explain what griefing means? *', id: 'staffGriefing', type: 'textarea', required: true },
+      { label: 'How would you handle a player who is breaking the rules? *', id: 'staffHandleBreakingRules', type: 'textarea', required: true },
+      { label: 'Describe a time when you had to deal with a difficult person or situation. How did you handle it? *', id: 'staffDifficultPerson', type: 'textarea', required: true },
+      { label: 'What would you do if two players are arguing and causing disruption? *', id: 'staffPlayersArguing', type: 'textarea', required: true },
+      { label: 'How would you respond if a player accuses you of being unfair? *', id: 'staffAccusedUnfair', type: 'textarea', required: true },
+      { label: 'What would you do if a fellow staff member is breaking the rules? *', id: 'staffFellowBreakingRules', type: 'textarea', required: true },
+      { label: 'How would you handle a situation where a player is spamming chat or advertising? *', id: 'staffSpamAdvertising', type: 'textarea', required: true }
+    ],
+  };
 
-    function createQuestionField(question) {
-      const container = document.createElement('div');
-      container.classList.add('form-group-box');
+  function createQuestionField(question) {
+    const container = document.createElement('div');
+    container.classList.add('form-group-box');
 
-      const label = document.createElement('label');
-      label.htmlFor = question.id;
-      label.textContent = question.label;
+    const label = document.createElement('label');
+    label.htmlFor = question.id;
+    label.textContent = question.label;
 
-      let input;
-      if (question.type === 'textarea') {
-        input = document.createElement('textarea');
-        input.rows = 4;
-      } else {
-        input = document.createElement('input');
-        input.type = question.type;
-      }
-
-      input.id = question.id;
-      input.name = question.id;
-      input.placeholder = question.placeholder || '';
-      if (question.required) input.required = true;
-
-      container.appendChild(label);
-      container.appendChild(input);
-      return container;
+    let input;
+    if (question.type === 'textarea') {
+      input = document.createElement('textarea');
+      input.rows = 4;
+    } else {
+      input = document.createElement('input');
+      input.type = question.type;
     }
 
-    appliedSpotSelect.addEventListener('change', () => {
-      roleQuestionsContainer.innerHTML = '';
+    input.id = question.id;
+    input.name = question.id;
+    input.placeholder = question.placeholder || '';
+    if (question.required) input.required = true;
 
-      const selectedRole = appliedSpotSelect.value;
-      if (!selectedRole || !questions[selectedRole]) return;
+    container.appendChild(label);
+    container.appendChild(input);
+    return container;
+  }
 
-      questions[selectedRole].forEach(q => {
-        roleQuestionsContainer.appendChild(createQuestionField(q));
-      });
+  appliedSpotSelect.addEventListener('change', () => {
+    roleQuestionsContainer.innerHTML = '';
+    const selectedRole = appliedSpotSelect.value;
+    if (!selectedRole || !questions[selectedRole]) return;
+
+    questions[selectedRole].forEach(q => {
+      roleQuestionsContainer.appendChild(createQuestionField(q));
     });
+  });
 
-    const nextBtn = document.getElementById('nextButton');
-    const infoPage = document.getElementById('infoPage');
-    const applicationPage = document.getElementById('applicationPage');
+  const nextBtn = document.getElementById('nextButton');
+  const infoPage = document.getElementById('infoPage');
+  const applicationPage = document.getElementById('applicationPage');
 
-    nextBtn.addEventListener('click', () => {
-      infoPage.style.display = 'none';
-      applicationPage.style.display = 'block';
-      appliedSpotSelect.focus();
-    });
+  nextBtn.addEventListener('click', () => {
+    infoPage.style.display = 'none';
+    applicationPage.style.display = 'block';
+    appliedSpotSelect.focus();
+  });
 
-    const form = document.getElementById('applicationForm');
-    const formMessage = document.getElementById('formMessage');
-    const toastNotification = document.getElementById('toastNotification');
+  const form = document.getElementById('applicationForm');
+  const formMessage = document.getElementById('formMessage');
+  const toastNotification = document.getElementById('toastNotification');
 
-    function showToast(message, type = 'success') {
-      toastNotification.textContent = message;
-      toastNotification.className = `show ${type}`;
-      setTimeout(() => {
-        toastNotification.className = toastNotification.className.replace('show', '').trim();
-      }, 3000);
-    }
-    const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1402118879009833010/kA9UfzEsuL6JmMQOZL1lD_8K86hUc6iiFFJxciXlqch2HADupTk5V_zdb9IKyEtKgImN';
+  function showToast(message, type = 'success') {
+    toastNotification.textContent = message;
+    toastNotification.className = `show ${type}`;
+    setTimeout(() => {
+      toastNotification.className = toastNotification.className.replace('show', '').trim();
+    }, 3000);
+  }
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+  const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1402118879009833010/kA9UfzEsuL6JmMQOZL1lD_8K86hUc6iiFFJxciXlqch2HADupTk5V_zdb9IKyEtKgImN';
 
-      if (!form.checkValidity()) {
-        formMessage.textContent = 'Please fill out all required fields.';
+  // 72 hours in milliseconds
+  const COOLDOWN_MS = 72 * 60 * 60 * 1000;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Check cooldown
+    const lastSubmitted = localStorage.getItem('lastApplicationTimestamp');
+    const now = Date.now();
+
+    if (lastSubmitted) {
+      const elapsed = now - parseInt(lastSubmitted, 10);
+      if (elapsed < COOLDOWN_MS) {
+        const remainingMs = COOLDOWN_MS - elapsed;
+        const hours = Math.floor(remainingMs / (1000 * 60 * 60));
+        const minutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
+        formMessage.textContent = `You can only submit once every 72 hours. Please wait ${hours}h ${minutes}m before submitting again.`;
         formMessage.style.color = '#ef4444';
         formMessage.style.display = 'block';
-        showToast('Please fill out all required fields.', 'error');
+        showToast('You must wait before submitting again.', 'error');
         return;
       }
+    }
 
-      const formData = new FormData(form);
-      const selectedRole = formData.get('appliedSpot');
+    if (!form.checkValidity()) {
+      formMessage.textContent = 'Please fill out all required fields.';
+      formMessage.style.color = '#ef4444';
+      formMessage.style.display = 'block';
+      showToast('Please fill out all required fields.', 'error');
+      return;
+    }
 
-      const embedFields = [
-        {
-          name: 'Discord Name',
-          value: formData.get('discordName'),
-          inline: false
-        },
-        {
-          name: 'Discord ID',
-          value: formData.get('discordID'),
-          inline: false
-        },
-        {
-          name: 'Minecraft IGN',
-          value: formData.get('ingameName'),
-          inline: false
-        },
-        {
-          name: 'Age',
-          value: formData.get('age'),
-          inline: false
-        },
-        {
-          name: 'Applying For',
-          value: selectedRole,
-          inline: false
-        }
-      ];
+    const formData = new FormData(form);
+    const selectedRole = formData.get('appliedSpot');
 
-      if (questions[selectedRole]) {
-        questions[selectedRole].forEach(q => {
-          const answer = formData.get(q.id);
-          embedFields.push({
-            name: q.label.replace(/\s\*$/, ''),
-            value: answer || '*Not answered*',
-            inline: false
-          });
+    const embedFields = [
+      { name: 'Discord Name', value: formData.get('discordName') || '*Not answered*', inline: false },
+      { name: 'Discord ID', value: formData.get('discordID') || '*Not answered*', inline: false },
+      { name: 'Minecraft IGN', value: formData.get('ingameName') || '*Not answered*', inline: false },
+      { name: 'Age', value: formData.get('age') || '*Not answered*', inline: false },
+      { name: 'Applying For', value: selectedRole || '*Not answered*', inline: false }
+    ];
+
+    if (questions[selectedRole]) {
+      questions[selectedRole].forEach(q => {
+        const answer = formData.get(q.id);
+        embedFields.push({
+          name: q.label.replace(/\s\*$/, ''),
+          value: answer || '*Not answered*',
+          inline: false
         });
-      }
+      });
+    }
 
-      const embed = {
-        title: 'Tropical Paradise Application Submitted',
-        color: 0x3b82f6,
-        fields: embedFields,
-        timestamp: new Date().toISOString(),
-        footer: {
-          text: 'Tropical Paradise Application'
-        }
-      };
+    const embed = {
+      title: 'Tropical Paradise Application Submitted',
+      color: 0x3b82f6,
+      fields: embedFields,
+      timestamp: new Date().toISOString(),
+      footer: { text: 'Tropical Paradise Application' }
+    };
 
-      try {
-        await fetch(DISCORD_WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            embeds: [embed]
-          })
-        });
+    try {
+      const res = await fetch(DISCORD_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ embeds: [embed] })
+      });
 
-        formMessage.textContent = 'Your application has been submitted successfully!';
-        formMessage.style.color = '#22c55e';
-        formMessage.style.display = 'block';
-        showToast('Application submitted! Thank you.');
-        form.reset();
-        roleQuestionsContainer.innerHTML = '';
-        appliedSpotSelect.focus();
-      } catch (error) {
-        console.error('Webhook error:', error);
-        showToast('Submission failed. Try again later.', 'error');
-        formMessage.textContent = 'There was an error submitting your application. Please try again later.';
-        formMessage.style.color = '#ef4444';
-        formMessage.style.display = 'block';
-      }
-    });
-  </script>
+      if (!res.ok) throw new Error('Failed to submit webhook');
+
+      // Save submission time to localStorage
+      localStorage.setItem('lastApplicationTimestamp', now.toString());
+
+      formMessage.textContent = 'Your application has been submitted successfully!';
+      formMessage.style.color = '#22c55e';
+      formMessage.style.display = 'block';
+      showToast('Application submitted! Thank you.');
+      form.reset();
+      roleQuestionsContainer.innerHTML = '';
+      appliedSpotSelect.focus();
+    } catch (error) {
+      console.error('Webhook error:', error);
+      showToast('Submission failed. Try again later.', 'error');
+      formMessage.textContent = 'There was an error submitting your application. Please try again later.';
+      formMessage.style.color = '#ef4444';
+      formMessage.style.display = 'block';
+    }
+  });
+</script>
 </body>
 
 
 </html>
+
 

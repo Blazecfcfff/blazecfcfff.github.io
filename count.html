@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Countdown Page</title>
+  <style>
+    :root {
+      --bg-color: #121217;
+      --text-color: #ffffff;
+      --accent-color: #1e90ff;
+      --card-bg: rgba(26, 38, 57, 0.85);
+      --card-border: #1e90ff;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      position: relative;
+    }
+
+    #fireworks-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: screen;
+    }
+
+    body>.content {
+      position: relative;
+      z-index: 1;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+    }
+
+    .countdown-container {
+      display: flex;
+      gap: 1.2rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .time-box {
+      background-color: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      min-width: 100px;
+      font-size: 2.2rem;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      user-select: none;
+    }
+
+    .time-label {
+      font-size: 0.85rem;
+      color: #ccc;
+      margin-top: 0.3rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    .link-buttons {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .link-buttons a {
+      text-decoration: none;
+      padding: 1.25rem 2.5rem;
+      font-size: 1.3rem;
+      border: 2px solid var(--card-border);
+      border-radius: 12px;
+      color: var(--text-color);
+      background-color: var(--card-bg);
+      transition: 0.3s ease;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    .link-buttons a:hover {
+      background-color: var(--accent-color);
+      color: white;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="fireworks-canvas"></canvas>
+
+  <div class="content">
+    <h1>Countdown to the Release of Tropical Paradise</h1>
+
+    <div class="countdown-container" id="countdown">
+      <div class="time-box" id="days"><span>--</span><span class="time-label">Days</span></div>
+      <div class="time-box" id="hours"><span>--</span><span class="time-label">Hours</span></div>
+      <div class="time-box" id="minutes"><span>--</span><span class="time-label">Minutes</span></div>
+      <div class="time-box" id="seconds"><span>--</span><span class="time-label">Seconds</span></div>
+    </div>
+
+    <div class="link-buttons">
+      <a href="https://discord.gg/RN3QrMHRb3" target="_blank" rel="noopener noreferrer">Join Discord</a>
+      <a href="http://tropicalparadise.xyz/apps" target="_blank" rel="noopener noreferrer">Visit App Site</a>
+    </div>
+  </div>
+
+  <script>
+    const webhookUrl = "https://discord.com/api/webhooks/1403224408646221928/KwKmRsjJKb6n9fuHcKfWXmpGstCcrAeMhQWzqgjUb7oCQk1B9ngZ5IceYhYG9TTBUvLE"; // Replace with your webhook
+
+    function sendDiscordWebhook() {
+      const payload = {
+        username: "Tropical Paradise",
+        avatar_url: "https://cdn.discordapp.com/attachments/1351670394586796185/1402129211145064458/Copilot_20250801_173123.png?ex=6896be96&is=68956d16&hm=6dcdc8fc76aefcab412cdc4156b5166dd02b3721d83c1587a0846248dbec43b6&",
+        embeds: [
+          {
+            title: "🌴 Tropical Paradise is Now Released!",
+            description: "The countdown is over. Tropical Paradise is now live!",
+            color: 0x1e90ff,
+            timestamp: new Date().toISOString(),
+            footer: {
+              text: "Tropical Paradise",
+              icon_url: "https://cdn.discordapp.com/attachments/1351670394586796185/1402129211145064458/Copilot_20250801_173123.png?ex=6896be96&is=68956d16&hm=6dcdc8fc76aefcab412cdc4156b5166dd02b3721d83c1587a0846248dbec43b6&"
+            }
+          }
+        ]
+      };
+
+      fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(response => {
+        if (!response.ok) {
+          console.error("Failed to send webhook:", response.statusText);
+        } else {
+          console.log("Webhook sent!");
+        }
+      }).catch(error => console.error("Error sending webhook:", error));
+    }
+
+    function getNextMonthFourthMidnight() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      const nextMonth = (month + 1) % 12;
+      const nextYear = month === 11 ? year + 1 : year;
+      return new Date(nextYear, nextMonth, 4, 0, 0, 0).getTime();
+    }
+
+    function startCountdown(targetTime) {
+      const daysEl = document.getElementById('days').querySelector('span');
+      const hoursEl = document.getElementById('hours').querySelector('span');
+      const minutesEl = document.getElementById('minutes').querySelector('span');
+      const secondsEl = document.getElementById('seconds').querySelector('span');
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetTime - now;
+
+        if (distance <= 0) {
+          daysEl.textContent = '0';
+          hoursEl.textContent = '0';
+          minutesEl.textContent = '0';
+          secondsEl.textContent = '0';
+          clearInterval(interval);
+          sendDiscordWebhook();
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        daysEl.textContent = days;
+        hoursEl.textContent = hours;
+        minutesEl.textContent = minutes;
+        secondsEl.textContent = seconds;
+      }
+
+      updateCountdown();
+      const interval = setInterval(updateCountdown, 1000);
+    }
+
+    const targetTime = getNextMonthFourthMidnight();
+    startCountdown(targetTime);
+
+    (() => {
+      const canvas = document.getElementById('fireworks-canvas');
+      const ctx = canvas.getContext('2d');
+      let cw, ch;
+      let fireworks = [];
+      let particles = [];
+
+      class Firework {
+        constructor(sx, sy, tx, ty) {
+          this.x = sx;
+          this.y = sy;
+          this.sx = sx;
+          this.sy = sy;
+          this.tx = tx;
+          this.ty = ty;
+          this.distanceToTarget = dist(sx, sy, tx, ty);
+          this.distanceTraveled = 0;
+          this.coordinates = [];
+          this.coordinateCount = 3;
+          while (this.coordinateCount--) {
+            this.coordinates.push([this.x, this.y]);
+          }
+          this.angle = Math.atan2(ty - sy, tx - sx);
+          this.speed = 3 + Math.random() * 2;
+          this.acceleration = 1.05;
+          this.brightness = random(50, 70);
+          this.targetRadius = 2;
+        }
+        update(index) {
+          this.coordinates.pop();
+          this.coordinates.unshift([this.x, this.y]);
+
+          if (this.targetRadius < 8) {
+            this.targetRadius += 0.3;
+          } else {
+            this.targetRadius = 1;
+          }
+
+          this.speed *= this.acceleration;
+          let vx = Math.cos(this.angle) * this.speed;
+          let vy = Math.sin(this.angle) * this.speed;
+          this.distanceTraveled = dist(this.sx, this.sy, this.x + vx, this.y + vy);
+
+          if (this.distanceTraveled >= this.distanceToTarget) {
+            createParticles(this.tx, this.ty);
+            fireworks.splice(index, 1);
+          } else {
+            this.x += vx;
+            this.y += vy;
+          }
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
+          ctx.lineTo(this.x, this.y);
+          ctx.strokeStyle = `hsl(${random(0, 360)}, 100%, ${this.brightness}%)`;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(this.tx, this.ty, this.targetRadius, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+      }
+
+      class Particle {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+          this.coordinates = [];
+          this.coordinateCount = 5;
+          while (this.coordinateCount--) {
+            this.coordinates.push([this.x, this.y]);
+          }
+          this.angle = random(0, Math.PI * 2);
+          this.speed = random(1, 10);
+          this.friction = 0.95;
+          this.gravity = 0.7;
+          this.hue = random(0, 360);
+          this.brightness = random(50, 80);
+          this.alpha = 1;
+          this.decay = random(0.015, 0.03);
+        }
+        update(index) {
+          this.coordinates.pop();
+          this.coordinates.unshift([this.x, this.y]);
+          this.speed *= this.friction;
+          this.x += Math.cos(this.angle) * this.speed;
+          this.y += Math.sin(this.angle) * this.speed + this.gravity;
+          this.alpha -= this.decay;
+
+          if (this.alpha <= 0) {
+            particles.splice(index, 1);
+          }
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
+          ctx.lineTo(this.x, this.y);
+          ctx.strokeStyle = `hsla(${this.hue}, 100%, ${this.brightness}%, ${this.alpha})`;
+          ctx.stroke();
+        }
+      }
+
+      function createParticles(x, y) {
+        let particleCount = 40; 
+        while (particleCount--) {
+          particles.push(new Particle(x, y));
+        }
+      }
+
+      function dist(aX, aY, bX, bY) {
+        return Math.sqrt((bX - aX) * (bX - aX) + (bY - aY) * (bY - aY));
+      }
+
+      function random(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      function loop() {
+        requestAnimationFrame(loop);
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.fillStyle = 'rgba(18,18,23,0.3)';
+        ctx.fillRect(0, 0, cw, ch);
+        ctx.globalCompositeOperation = 'lighter';
+
+        let i = fireworks.length;
+        while (i--) {
+          fireworks[i].draw();
+          fireworks[i].update(i);
+        }
+
+        let j = particles.length;
+        while (j--) {
+          particles[j].draw();
+          particles[j].update(j);
+        }
+
+        if (Math.random() < 0.12) { 
+          const launchPositions = [cw * 0.2, cw * 0.5, cw * 0.8];
+          const sx = launchPositions[Math.floor(Math.random() * launchPositions.length)];
+          const sy = ch;
+          const tx = Math.random() * cw;
+          const ty = Math.random() * ch / 2;
+          fireworks.push(new Firework(sx, sy, tx, ty));
+        }
+      }
+
+      function resize() {
+        cw = window.innerWidth;
+        ch = window.innerHeight;
+        canvas.width = cw;
+        canvas.height = ch;
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+      loop();
+    })();
+  </script>
+</body>
+
+</html>

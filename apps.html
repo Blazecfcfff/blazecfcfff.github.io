@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Apply to Tropical Paradise</title>
+  <style>
+    :root {
+      --bg-color: #121217;
+      --text-color: #ffffff;
+      --accent-color: #1e90ff;
+      --card-bg: #1a2639;
+      --card-border: #1e90ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121217;
+      color: #d0d0d5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav.navbar {
+      background-color: #1e2235;
+      color: #cbd5e1;
+      padding: 0.1rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #93a2ff;
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      height: 56px;
+    }
+
+    nav .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0rem;
+    }
+
+    nav .logo {
+      height: 52px;
+      width: 52px;
+      object-fit: contain;
+      border-radius: 6px;
+      padding: 6px;
+    }
+
+    nav .server-name {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #e0e0ff;
+    }
+
+    nav ul.nav-links {
+      list-style: none;
+      display: flex;
+      gap: 0.8rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul.nav-links li a {
+      color: #a3aed0;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.05rem;
+      letter-spacing: 0.03em;
+      position: relative;
+      transition: color 0.3s ease;
+      outline-offset: 3px;
+    }
+
+    nav ul.nav-links li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: #e0e0ff;
+      transition: width 0.3s ease;
+      border-radius: 2px;
+    }
+
+    nav ul.nav-links li a:hover,
+    nav ul.nav-links li a:focus {
+      color: #e0e0ff;
+    }
+
+    nav ul.nav-links li a:hover::after,
+    nav ul.nav-links li a:focus::after {
+      width: 100%;
+    }
+
+    nav .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    nav .nav-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav a.support-btn {
+      padding: 0.5rem 1.25rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      color: #f0f0f5;
+      background-color: #3d81ff;
+      transition: background-color 0.25s ease;
+    }
+
+    nav a.support-btn:hover {
+      background-color: #0059ff;
+    }
+
+    main.content {
+      flex: 1;
+      padding: 1rem 1rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    main h1 {
+      color: #3b82f6;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    main p {
+      font-size: 1.2rem;
+      color: #cbd5e1;
+      margin-bottom: 2rem;
+    }
+
+    form.application-form {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .below-form-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1.5rem;
+    }
+
+    .form-group-box {
+      background-color: #1e2235;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #00000099;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group-box label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #8db5ff;
+    }
+
+    .form-group-box input,
+    .form-group-box textarea,
+    .form-group-box select {
+      background-color: #282c44;
+      border: 1.5px solid #3b82f6;
+      border-radius: 8px;
+      color: #e0e0ff;
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      resize: vertical;
+    }
+
+    .form-group-box textarea {
+      min-height: 100px;
+    }
+
+    .form-group-box.full-width {
+      grid-column: span 2;
+    }
+
+    .submit-btn,
+    .next-btn {
+      width: 100%;
+      padding: 1rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      background-color: #3b82f6;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover,
+    .next-btn:hover {
+      background-color: #2563eb;
+    }
+
+    .form-message {
+      margin-top: 1rem;
+      font-weight: 600;
+      text-align: center;
+      display: none;
+    }
+
+    #toastNotification {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      width: 100vw;
+      padding: 0.4rem 1rem;
+      font-size: 0.9rem;
+      border-radius: 0;
+      background-color: #333;
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 10000;
+      text-align: center;
+      max-width: none;
+    }
+
+    #toastNotification.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #toastNotification.success {
+      background-color: #22c55e;
+    }
+
+    #toastNotification.error {
+      background-color: #ef4444;
+    }
+
+    /* Hide the form initially */
+    #applicationPage {
+      display: none;
+    }
+
+    @media (max-width: 720px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group-box.full-width {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="toastNotification" role="alert" aria-live="assertive" aria-atomic="true"></div>
+
+  <nav class="navbar">
+    <div class="nav-left">
+      <img
+        src="https://cdn.discordapp.com/attachments/1351670394586796185/1402129211145064458/Copilot_20250801_173123.png?ex=689372d6&is=68922156&hm=ae50a948dc79322f465ca307bc0be4023b686b4e0040e77be141e09bcb457ba4&"
+        alt="Server Logo" class="logo" />
+      <span class="server-name">Tropical Paradise</span>
+    </div>
+
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#">Home Page</a></li>
+      </ul>
+
+      <div class="nav-buttons">
+        <a href="https://discord.gg/supportserver" target="_blank" class="support-btn">Support Server</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="content" role="main">
+    <section id="infoPage" aria-label="Application Introduction">
+      <h1>Welcome to the Tropical Paradise Application</h1>
+      <p>
+        Are you passionate about Minecraft and eager to help build an amazing community? This is your chance to join our
+        dedicated staff team!
+      </p>
+
+      <p>
+        Before applying, please read the following carefully to ensure you understand what we expect:
+      </p>
+
+      <ul>
+        <li><strong>Commitment:</strong> Being a staff member requires time and dedication to keep our server enjoyable
+          and safe.</li>
+        <li><strong>Communication:</strong> You must be reachable via Discord and respond in a timely manner.</li>
+        <li><strong>Attitude:</strong> Positive attitude and patience are key when dealing with community members.</li>
+        <li><strong>Age:</strong> Applications from users under 15 will not be considered..</li>
+      </ul>
+
+      <p>
+        The application form on the next page will ask you about your experience, your motivation, and how you would
+        contribute
+        to Tropical Paradise. Each required field is marked with an asterisk (*). Optional fields give you a chance to
+        tell
+        us more about yourself.
+      </p>
+
+      <p>
+        Once you submit your application, our team will carefully review it and get back to you as soon as possible with
+        further instructions.
+      </p>
+
+      <p><em>Thank you for your interest in joining Tropical Paradise — we’re excited to hear from you!</em></p>
+
+      <button class="next-btn" id="nextButton" aria-label="Proceed to application form">Start Your Application
+        Today</button>
+    </section>
+
+    <section id="applicationPage" aria-label="Staff Application Form">
+      <h1>Tropical Paradise Application Form</h1>
+
+      <form class="application-form" id="applicationForm" novalidate>
+        <div class="form-grid">
+          <div class="form-group-box">
+            <label for="discordName">Discord Name *</label>
+            <input type="text" id="discordName" name="discordName" required autocomplete="off" />
+          </div>
+
+          <div class="form-group-box">
+            <label for="discordID">Discord ID *</label>
+            <input type="text" id="discordID" name="discordID" required autocomplete="off" inputmode="numeric"
+              pattern="\d*" maxlength="18" oninput="this.value = this.value.replace(/\D/g, '')" />
+          </div>
+
+          <div class="form-group-box">
+            <label for="ingameName">Ingame Name *</label>
+            <input type="text" id="ingameName" name="ingameName" required autocomplete="off" />
+          </div>
+
+          <div class="form-group-box">
+            <label for="age">Your age * Minimum age is 15</label>
+            <input type="number" id="age" name="age" required autocomplete="off" min="15" max="50" />
+          </div>
+
+          <div class="form-group-box full-width">
+            <label for="appliedSpot">Applied for Spot *</label>
+            <select id="appliedSpot" name="appliedSpot" required>
+              <option value="" disabled selected>Select a spot to apply for Tropical Paradise</option>
+              <option value="staff">Tropical Paradise Staff Team</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="roleQuestions" class="below-form-grid"></div>
+
+        <button type="submit" class="submit-btn">Submit Application</button>
+        <div id="formMessage" class="form-message" role="alert" aria-live="polite"></div>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const roleQuestionsContainer = document.getElementById('roleQuestions');
+    const appliedSpotSelect = document.getElementById('appliedSpot');
+
+    const questions = {
+      staff: [
+        {
+          label: 'What time zone are you in? *',
+          id: 'staffTimezone',
+          type: 'text',
+          required: true,
+          placeholder: ''
+        },
+        {
+          label: 'How many hours per day or week can you commit to staff duties? *',
+          id: 'staffHours',
+          type: 'text',
+          required: true,
+          placeholder: ''
+        },
+        {
+          label: 'Are you familiar with our server rules and community guidelines? *',
+          id: 'staffRules',
+          type: 'text',
+          required: true,
+          placeholder: ''
+        },
+        {
+          label: 'Why join our staff team *',
+          id: 'staffWhyJoin',
+          type: 'textarea',
+          required: true,
+          placeholder: ''
+        },
+        {
+          label: 'Experience with Minecraft servers *',
+          id: 'staffExperience',
+          type: 'textarea',
+          required: true,
+          placeholder: ''
+        },
+        {
+          label: 'Have you been a staff member on any other Minecraft server before? If yes, please describe your experience. *',
+          id: 'staffPrevious',
+          type: 'textarea',
+          required: true,
+          placeholder: ''
+        },
+        {
+          label: 'What qualities do you think a good staff member should have? *',
+          id: 'staffQualities',
+          type: 'textarea',
+          required: true,
+          placeholder: ''
+        },
+        {
+          label: 'Can you explain what griefing means? *',
+          id: 'staffGriefing',
+          type: 'textarea',
+          required: true,
+          placeholder: ''
+        },
+        {
+          label: 'How would you handle a player who is breaking the rules? *',
+          id: 'staffHandleBreakingRules',
+          type: 'textarea',
+          required: true,
+          placeholder: ''
+        },
+        {
+          label: 'Describe a time when you had to deal with a difficult person or situation. How did you handle it? *',
+          id: 'staffDifficultPerson',
+          type: 'textarea',
+          required: true,
+          placeholder: ''
+        },
+        {
+          label: 'What would you do if two players are arguing and causing disruption? *',
+          id: 'staffPlayersArguing',
+          type: 'textarea',
+          required: true,
+          placeholder: ''
+        },
+        {
+          label: 'How would you respond if a player accuses you of being unfair? *',
+          id: 'staffAccusedUnfair',
+          type: 'textarea',
+          required: true,
+          placeholder: ''
+        },
+        {
+          label: 'What would you do if a fellow staff member is breaking the rules? *',
+          id: 'staffFellowBreakingRules',
+          type: 'textarea',
+          required: true,
+          placeholder: ''
+        },
+        {
+          label: 'How would you handle a situation where a player is spamming chat or advertising? *',
+          id: 'staffSpamAdvertising',
+          type: 'textarea',
+          required: true,
+          placeholder: ''
+        },
+      ],
+    };
+
+    function createQuestionField(question) {
+      const container = document.createElement('div');
+      container.classList.add('form-group-box');
+
+      const label = document.createElement('label');
+      label.htmlFor = question.id;
+      label.textContent = question.label;
+
+      let input;
+      if (question.type === 'textarea') {
+        input = document.createElement('textarea');
+        input.rows = 4;
+      } else {
+        input = document.createElement('input');
+        input.type = question.type;
+      }
+
+      input.id = question.id;
+      input.name = question.id;
+      input.placeholder = question.placeholder || '';
+      if (question.required) input.required = true;
+
+      container.appendChild(label);
+      container.appendChild(input);
+      return container;
+    }
+
+    appliedSpotSelect.addEventListener('change', () => {
+      roleQuestionsContainer.innerHTML = '';
+
+      const selectedRole = appliedSpotSelect.value;
+      if (!selectedRole || !questions[selectedRole]) return;
+
+      questions[selectedRole].forEach(q => {
+        roleQuestionsContainer.appendChild(createQuestionField(q));
+      });
+    });
+
+    const nextBtn = document.getElementById('nextButton');
+    const infoPage = document.getElementById('infoPage');
+    const applicationPage = document.getElementById('applicationPage');
+
+    nextBtn.addEventListener('click', () => {
+      infoPage.style.display = 'none';
+      applicationPage.style.display = 'block';
+      appliedSpotSelect.focus();
+    });
+
+    const form = document.getElementById('applicationForm');
+    const formMessage = document.getElementById('formMessage');
+    const toastNotification = document.getElementById('toastNotification');
+
+    function showToast(message, type = 'success') {
+      toastNotification.textContent = message;
+      toastNotification.className = `show ${type}`;
+      setTimeout(() => {
+        toastNotification.className = toastNotification.className.replace('show', '').trim();
+      }, 3000);
+    }
+    const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1402118879009833010/kA9UfzEsuL6JmMQOZL1lD_8K86hUc6iiFFJxciXlqch2HADupTk5V_zdb9IKyEtKgImN';
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!form.checkValidity()) {
+        formMessage.textContent = 'Please fill out all required fields.';
+        formMessage.style.color = '#ef4444';
+        formMessage.style.display = 'block';
+        showToast('Please fill out all required fields.', 'error');
+        return;
+      }
+
+      const formData = new FormData(form);
+      const selectedRole = formData.get('appliedSpot');
+
+      const embedFields = [
+        {
+          name: 'Discord Name',
+          value: formData.get('discordName'),
+          inline: false
+        },
+        {
+          name: 'Discord ID',
+          value: formData.get('discordID'),
+          inline: false
+        },
+        {
+          name: 'Minecraft IGN',
+          value: formData.get('ingameName'),
+          inline: false
+        },
+        {
+          name: 'Age',
+          value: formData.get('age'),
+          inline: false
+        },
+        {
+          name: 'Applying For',
+          value: selectedRole,
+          inline: false
+        }
+      ];
+
+      if (questions[selectedRole]) {
+        questions[selectedRole].forEach(q => {
+          const answer = formData.get(q.id);
+          embedFields.push({
+            name: q.label.replace(/\s\*$/, ''),
+            value: answer || '*Not answered*',
+            inline: false
+          });
+        });
+      }
+
+      const embed = {
+        title: 'Tropical Paradise Application Submitted',
+        color: 0x3b82f6,
+        fields: embedFields,
+        timestamp: new Date().toISOString(),
+        footer: {
+          text: 'Tropical Paradise Application'
+        }
+      };
+
+      try {
+        await fetch(DISCORD_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            embeds: [embed]
+          })
+        });
+
+        formMessage.textContent = 'Your application has been submitted successfully!';
+        formMessage.style.color = '#22c55e';
+        formMessage.style.display = 'block';
+        showToast('Application submitted! Thank you.');
+        form.reset();
+        roleQuestionsContainer.innerHTML = '';
+        appliedSpotSelect.focus();
+      } catch (error) {
+        console.error('Webhook error:', error);
+        showToast('Submission failed. Try again later.', 'error');
+        formMessage.textContent = 'There was an error submitting your application. Please try again later.';
+        formMessage.style.color = '#ef4444';
+        formMessage.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+
+</html>

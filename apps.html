@@ -480,6 +480,7 @@
         const hours = Math.floor(remainingMs / (1000 * 60 * 60));
         const minutes = Math.floor((remainingMs % (1000 * 60 * 60)) / (1000 * 60));
         formMessage.textContent = `You can only submit once every 72 hours. Please wait ${hours}h ${minutes}m before submitting again.`;
+        showToast(`You can only submit once every 72 hours. Please wait ${hours}h ${minutes}m before submitting again.`);
         formMessage.style.color = '#ef4444';
         formMessage.style.display = 'block';
         showToast('You must wait before submitting again.', 'error');
@@ -557,5 +558,6 @@
 
 
 </html>
+
 
 

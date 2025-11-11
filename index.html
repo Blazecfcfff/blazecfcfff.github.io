@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Solvex Studios</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Solvex Studios" />
+
+    <style>
+        :root {
+            --bg: #050505;
+            --bg-alt: #111111;
+            --card: #181818;
+            --accent: #0890ea;
+            --accent-soft: #08b5ea;
+            --text: #f9fafb;
+            --muted: #9ca3af;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --radius: 16px;
+            --shadow-soft: 0 18px 50px rgba(0, 0, 0, 0.6);
+            --transition: all 0.25s ease;
+            --nav-height: 72px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                sans-serif;
+            background: radial-gradient(circle at top left,
+                    rgba(8, 42, 234, 0.08),
+                    transparent 55%),
+                radial-gradient(circle at bottom right,
+                    rgba(8, 42, 234, 0.08),
+                    transparent 55%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            scroll-behavior: smooth;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            z-index: 50;
+            backdrop-filter: blur(14px);
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0.9),
+                    rgba(0, 0, 0, 0.7),
+                    transparent);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        }
+
+        .nav-inner {
+            max-width: 1120px;
+            height: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark {
+            width: 35px;
+            height: 35px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .brand-mark img {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .brand-title {
+            font-weight: 600;
+            font-size: 18px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .brand-sub {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--muted);
+        }
+
+        /* === NAVIGATION === */
+        nav {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 26px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 22px;
+            list-style: none;
+        }
+
+        nav a {
+            position: relative;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 3px 0;
+            color: var(--text);
+            transition: color 0.2s ease;
+        }
+
+        nav a:not(.nav-cta)::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+            transition: width 0.25s ease;
+        }
+
+        nav a:not(.nav-cta):hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 10px;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #e6faff;
+            background: rgba(8, 181, 234, 0.08);
+            border: 1px solid rgba(8, 181, 234, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: inset 0 0 8px rgba(8, 181, 234, 0.2),
+                0 0 12px rgba(8, 181, 234, 0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-cta:hover,
+        .nav-cta:focus,
+        .nav-cta:active {
+            background: rgba(8, 181, 234, 0.2);
+            border-color: rgba(8, 181, 234, 0.6);
+            color: #fff;
+            transform: translateY(-1px) scale(1.03);
+            text-decoration: none;
+        }
+
+        main {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: calc(var(--nav-height) + 28px) 20px 60px;
+        }
+
+        section {
+            padding: 60px 0;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .section-lead {
+            max-width: 520px;
+            font-size: 15px;
+            color: var(--muted);
+        }
+
+
+        #home {
+            padding-top: 40px;
+            padding-bottom: 80px;
+            border: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(8, 144, 234, 0.35);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--accent-soft);
+            margin-bottom: 18px;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-kicker-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+        }
+
+        .hero-title {
+            font-size: clamp(32px, 5vw, 44px);
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .hero-title span {
+            color: var(--accent-soft);
+        }
+
+        .hero-sub {
+            font-size: 15px;
+            color: var(--muted);
+            max-width: 520px;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            border-radius: 999px;
+            padding: 11px 20px;
+            font-size: 13px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg,
+                    rgba(21, 147, 250, 0.95),
+                    rgba(8, 132, 234, 0.9));
+            color: #111827;
+            border-color: rgba(21, 120, 250, 0.9);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.02);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--accent-soft);
+            border-color: rgba(66, 170, 255, 0.95);
+        }
+
+        .btn-ghost:hover {
+            border-color: rgba(172, 218, 255, 0.95);
+            background: transparent;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            font-size: 11px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+        }
+
+        .hero-meta span {
+            padding-right: 14px;
+            border-right: 1px solid rgba(75, 85, 99, 0.8);
+        }
+
+        .hero-meta span:last-child {
+            border-right: none;
+            padding-right: 0;
+        }
+
+        .hero-panel {
+            border-radius: 22px;
+            background: radial-gradient(circle at top,
+                    rgba(21, 128, 250, 0.08),
+                    transparent 60%),
+                var(--bg-alt);
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            padding: 18px 18px 20px;
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .hero-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .hero-status-pill {
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(197, 34, 34, 0.5);
+            color: #bbf7d0;
+            font-size: 11px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(101, 22, 22, 0.4);
+        }
+
+        .hero-status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #c52222;
+        }
+
+        .hero-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            font-size: 11px;
+        }
+
+        .hero-stat {
+            padding: 10px 10px 12px;
+            border-radius: 14px;
+            background: rgba(15, 15, 15, 0.95);
+            border: 1px solid rgba(51, 65, 85, 0.6);
+        }
+
+        .hero-stat-label {
+            color: var(--muted);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+
+        .hero-stat-value {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .hero-note {
+            font-size: 11px;
+            color: var(--muted);
+            border-top: 1px dashed rgba(75, 85, 99, 0.7);
+            padding-top: 9px;
+            margin-top: 3px;
+        }
+
+        /* ABOUT */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+            gap: 36px;
+            margin-top: 26px;
+        }
+
+        .about-body {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .about-body p+p {
+            margin-top: 12px;
+        }
+
+        .about-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .about-chip {
+            padding: 7px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            color: var(--muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .about-chip-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+        }
+
+        .about-meta-card {
+            border-radius: 18px;
+            padding: 16px 16px 18px;
+            background: var(--card);
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-soft);
+            font-size: 13px;
+            color: var(--muted);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .about-meta-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--accent-soft);
+        }
+
+        .about-meta-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .about-meta-label {
+            color: var(--muted);
+        }
+
+        .about-meta-value {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+
+        .projects-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 18px;
+            margin-top: 18px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+        }
+
+        .projects-note {
+            font-size: 12px;
+            color: var(--muted);
+            max-width: 340px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .project-card {
+            border-radius: 18px;
+            background: var(--card);
+            border: 1px solid var(--border-subtle);
+            padding: 14px 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .project-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(8, 98, 234, 0.7);
+        }
+
+        .project-btn {
+            display: inline-block;
+            margin-top: 5px;
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 10px;
+            font-weight: 500;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.25s ease;
+        }
+
+        .project-btn:hover {
+            background: rgba(58, 160, 255, 0.2);
+            border-color: rgba(58, 160, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .project-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .project-tag {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--muted);
+        }
+
+        .project-title {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .project-desc {
+            font-size: 13px;
+            color: var(--muted);
+            flex: 1;
+        }
+
+        .project-meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .project-pill {
+            padding: 4px 9px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+        }
+
+        /* CONTACT */
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+            gap: 34px;
+            margin-top: 24px;
+        }
+
+        .contact-form {
+            border-radius: 18px;
+            padding: 18px 18px 20px;
+            background: var(--card);
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .field {
+            margin-bottom: 12px;
+            flex: 1;
+            min-width: 140px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 4px;
+        }
+
+        .field input,
+        .field textarea {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(75, 85, 99, 0.9);
+            background: #020617;
+            color: var(--text);
+            padding: 9px 10px;
+            font-size: 13px;
+            outline: none;
+            transition: var(--transition);
+            resize: vertical;
+        }
+
+        .field input:focus,
+        .field textarea:focus {
+            border-color: var(--accent-soft);
+        }
+
+        .field textarea {
+            min-height: 120px;
+        }
+
+        .contact-aside {
+            font-size: 13px;
+            color: var(--muted);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .contact-detail {
+            font-size: 13px;
+        }
+
+        .contact-label {
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .contact-value {
+            font-size: 13px;
+            color: var(--text);
+            margin-top: 4px;
+        }
+
+        footer {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 18px 20px 32px;
+            font-size: 11px;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid rgba(148, 163, 184, 0.18);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        @media (max-width: 900px) {
+
+            .hero-grid,
+            .about-grid,
+            .project-grid,
+            .contact-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero-panel {
+                order: -1;
+            }
+
+            .project-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            nav ul {
+                display: none;
+            }
+
+            .project-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            main {
+                padding-top: calc(var(--nav-height) + 16px);
+            }
+
+            #home {
+                padding-top: 24px;
+                padding-bottom: 60px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="nav-inner">
+            <div class="brand">
+                <div class="brand-mark">
+                    <img src="https://cdn.discordapp.com/attachments/1436444806938365962/1437132841858236466/logo.png?ex=691221c2&is=6910d042&hm=6b541172b0c28f2015d1ef15514899607a6771562acd99b6f477984d29130303&"
+                        alt="Logo">
+                </div>
+                <div class="brand-text">
+                    <div class="brand-title">Solvex Studios</div>
+                    <div class="brand-sub">Discord Systems</div>
+                </div>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                </ul>
+
+                <a href="https://discord.gg/FpXhZxRj" class="nav-cta">Discord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="reveal">
+            <div class="hero-grid">
+                <div>
+                    <div class="hero-kicker">
+                        <span class="hero-kicker-dot"></span>
+                        <span>Studio Entry</span>
+                    </div>
+                    <h1 class="hero-title">
+                        Solvex <span>Studios</span><br />
+                        Modern builds. Clean systems.
+                    </h1>
+                    <p class="hero-sub">
+                        A focused studio for digital systems, visuals, and tools — from
+                        Discord ecosystems to branded web experiences. We design
+                        things that feel sharp, minimal, and intentional.
+                    </p>
+
+                    <div class="hero-actions">
+                        <button class="btn btn-ghost" data-scroll="#projects">
+                            View Projects
+                        </button>
+                        <button class="btn btn-ghost" data-scroll="#about">
+                            Learn More
+                        </button>
+                    </div>
+
+                    <div class="hero-meta">
+                        <span>Studios &amp; Systems</span>
+                        <span>Discord • Web • Branding</span>
+                        <span>Built with precision</span>
+                    </div>
+                </div>
+
+                <aside class="hero-panel">
+                    <div class="hero-panel-header">
+                        <span>Studio Snapshot</span>
+                        <span class="hero-status-pill">
+                            <span class="hero-status-dot"></span>
+                            Projects Full
+                        </span>
+                    </div>
+
+                    <div class="hero-stat-grid">
+                        <div class="hero-stat">
+                            <div class="hero-stat-label">Focus</div>
+                            <div class="hero-stat-value">Discord System</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-label">Style</div>
+                            <div class="hero-stat-value">Custom • Clean</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-label">Response</div>
+                            <div class="hero-stat-value">&lt; 24h</div>
+                        </div>
+                    </div>
+
+                    <p class="hero-note">
+                        Solvex Studios is designed for long-term builds:
+                        Discord bots, dashboards, and visual systems that match
+                        your brand — not generic templates.
+                    </p>
+                </aside>
+            </div>
+        </section>
+
+        <section id="about" class="reveal">
+            <div class="section-title">About Solvex Studios</div>
+            <p class="section-lead">
+                We build for clarity and control — clean interfaces, structured
+                systems, and experiences that feel intentional from the first
+                screen to the last.
+            </p>
+
+            <div class="about-grid">
+                <div class="about-body">
+                    <p>
+                        Solvex Studios sits at the intersection of <strong>design</strong>
+                        and <strong>systems engineering</strong>. We focus on projects
+                        where the details matter: Discord bot ecosystems, studio-grade
+                        dashboards, and branding that stays consistent across
+                        platforms.
+                    </p>
+                    <p>
+                        Every build is approached like a product, not a quick layout:
+                        naming, structure, UI, and flow are all aligned to feel like
+                        they belong to one solid brand.
+                    </p>
+
+                    <div class="about-list">
+                        <div class="about-chip">
+                            <span class="about-chip-dot"></span>
+                            Discord ecosystems
+                        </div>
+                        <div class="about-chip">
+                            <span class="about-chip-dot"></span>
+                            Dark UI dashboards
+                        </div>
+                        <div class="about-chip">
+                            <span class="about-chip-dot"></span>
+                            Branding &amp; visuals
+                        </div>
+                        <div class="about-chip">
+                            <span class="about-chip-dot"></span>
+                            System structure &amp; flows
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="about-meta-card">
+                    <div class="about-meta-title">Studio Profile</div>
+                    <div class="about-meta-row">
+                        <div class="about-meta-label">Mode</div>
+                        <div class="about-meta-value">Remote-first</div>
+                    </div>
+                    <div class="about-meta-row">
+                        <div class="about-meta-label">Focus Stack</div>
+                        <div class="about-meta-value">Discord • Web • UI</div>
+                    </div>
+                    <div class="about-meta-row">
+                        <div class="about-meta-label">Ideal Client</div>
+                        <div class="about-meta-value">Communities &amp; studios</div>
+                    </div>
+                    <div class="about-meta-row">
+                        <div class="about-meta-label">Style Notes</div>
+                        <div class="about-meta-value">Minimal • Dark • Sharp</div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section id="projects" class="reveal">
+            <div class="section-title">Projects - Selected Work</div>
+
+            <div class="projects-header">
+                <p class="section-lead">
+                    A snapshot of the kind of builds Solvex Studios is designed for:
+                    structured, scalable systems with a strict visual style.
+                </p>
+                <p class="projects-note">
+                    These are example slots — you can swap in real projects:
+                    Discord bots, studio sites, portals, or brand dashboards.
+                </p>
+            </div>
+
+            <div class="project-grid">
+                <article class="project-card">
+                    <div class="project-tag">Discord System</div>
+                    <div class="project-title">Xyntrix AIO</div>
+                    <p class="project-desc">
+                        Free, all-in-one Discord bot crafted to enhance server management and community efficiency.
+                        It delivers essential utilities, automation, and sleek system tools for seamless organization
+                        and control.
+                    </p>
+                    <div class="project-meta-row">
+                        <span class="project-pill">Discord • Free System</span>
+                        <span>Flow-focused</span>
+                    </div>
+
+                    <a href="#" class="project-btn disabled">Coming Soon</a>
+                </article>
+
+                <article class="project-card">
+                    <div class="project-tag">Website System</div>
+                    <div class="project-title">Formify Applications</div>
+                    <p class="project-desc">
+                        Formify is a free, next-generation Discord & web platform for handling applications with speed
+                        and clarity.
+                        It brings automation, analytics, and precise control together in one seamless system.
+                    </p>
+                    <div class="project-meta-row">
+                        <span class="project-pill">Website • Discord</span>
+                        <span>Automation-driven</span>
+                    </div>
+
+                    <a href="#" class="project-btn disabled">Coming Soon</a>
+                </article>
+                <article class="project-card">
+                    <div class="project-tag">Discord System</div>
+                    <div class="project-title">Coming Soon - Not selected yet</div>
+                    <p class="project-desc">
+                        This project has not been made or selected yet. Will be selected soon
+                    </p>
+                    <div class="project-meta-row">
+                        <span class="project-pill">Discord • Dashboard</span>
+                        <span>Automation-driven</span>
+                    </div>
+
+                    <a href="#" class="project-btn disabled">Coming Soon</a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <span>&copy; <span id="year"></span> Solvex Studios. All rights reserved.</span>
+        <span>We build custom made services and more</span>
+    </footer>
+
+    <script>
+        document.querySelectorAll("[data-scroll]").forEach((el) => {
+            el.addEventListener("click", (e) => {
+                const target = el.getAttribute("data-scroll");
+                const section = document.querySelector(target);
+                if (!section) return;
+                e.preventDefault();
+                section.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+        });
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                    }
+                });
+            },
+            { threshold: 0.12 }
+        );
+
+        document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            alert(
+                "Form captured locally.\nIn production, send this to your backend, Discord webhook, or email handler."
+            );
+            e.target.reset();
+        }
+    </script>
+</body>
+
+</html>

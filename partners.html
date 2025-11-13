@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Solvex Studios — Partners</title>
+    <link rel="icon" href="S.png" />
+    <meta name="theme-color" content="#3aa0ff" />
+    <style>
+        :root {
+            --bg: #050505;
+            --bg-alt: #111111;
+            --card: #181818;
+            --accent: #0890ea;
+            --accent-soft: #08b5ea;
+            --text: #f9fafb;
+            --muted: #9ca3af;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --radius: 16px;
+            --transition: all 0.25s ease;
+            --nav-height: 72px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top left, rgba(8, 42, 234, 0.08), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(8, 42, 234, 0.08), transparent 55%), var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            scroll-behavior: smooth;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ==== NAV ==== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            z-index: 50;
+            backdrop-filter: blur(14px);
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7), transparent);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        }
+
+        .nav-inner {
+            max-width: 1120px;
+            height: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark {
+            width: 35px;
+            height: 35px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .brand-mark img {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .brand-title {
+            font-weight: 600;
+            font-size: 18px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .brand-sub {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--muted);
+        }
+
+        nav {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 26px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 22px;
+            list-style: none;
+        }
+
+        nav a {
+            position: relative;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 3px 0;
+            color: var(--text);
+            transition: color 0.2s ease;
+        }
+
+        nav a:not(.nav-cta)::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+            transition: width 0.25s ease;
+        }
+
+        nav a:not(.nav-cta):hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 10px;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #e6faff;
+            background: rgba(8, 181, 234, 0.08);
+            border: 1px solid rgba(8, 181, 234, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: inset 0 0 8px rgba(8, 181, 234, 0.2), 0 0 12px rgba(8, 181, 234, 0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-cta:hover {
+            background: rgba(8, 181, 234, 0.2);
+            border-color: rgba(8, 181, 234, 0.6);
+            color: #fff;
+            transform: translateY(-1px) scale(1.03);
+        }
+
+        main {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: calc(var(--nav-height) + 60px) 20px 80px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: clamp(28px, 5vw, 44px);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+        }
+
+        h1 span {
+            background: linear-gradient(90deg, #1687a3, #0bd2f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .intro {
+            text-align: center;
+            color: var(--muted);
+            max-width: 680px;
+            margin: 10px auto 60px;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .partner-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .partner-card {
+            position: relative;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.15) 100%);
+            border-radius: var(--radius);
+            padding: 30px 26px;
+            border: 2px solid transparent;
+            transition: transform .4s ease, box-shadow .4s ease;
+            background-clip: padding-box, border-box;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .partner-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius);
+            padding: 2px;
+            background: linear-gradient(135deg, var(--accent1), var(--accent2));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: borderShift 6s linear infinite;
+        }
+
+        @keyframes borderShift {
+            0% {
+                background: linear-gradient(135deg, var(--accent1), var(--accent2))
+            }
+
+            50% {
+                background: linear-gradient(315deg, var(--accent2), var(--accent1))
+            }
+
+            100% {
+                background: linear-gradient(135deg, var(--accent1), var(--accent2))
+            }
+        }
+
+        .partner-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .4), 0 0 0 1px rgba(255, 255, 255, .05);
+        }
+
+        .partner-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .partner-name {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .partner-type {
+            padding: 4px 12px;
+            font-size: 11px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            font-weight: 600;
+            border: 1px solid var(--accent1);
+            background: color-mix(in srgb, var(--accent1) 10%, transparent);
+            color: var(--accent1);
+            letter-spacing: .05em;
+        }
+
+        .partner-desc {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .partner-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .link-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid var(--accent1);
+            background: color-mix(in srgb, var(--accent1) 10%, transparent);
+            color: var(--accent1);
+            overflow: hidden;
+            transition: transform .25s ease, box-shadow .25s ease, background .4s ease;
+        }
+
+        .link-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            transition: all .5s ease;
+        }
+
+        .link-btn:hover::before {
+            left: 100%;
+        }
+
+        .link-btn:hover {
+            transform: translateY(-2px);
+            background: color-mix(in srgb, var(--accent1) 20%, transparent);
+        }
+
+        .link-btn:active {
+            transform: scale(0.96);
+        }
+
+        footer {
+            border-top: 1px solid var(--border-subtle);
+            color: var(--muted);
+            padding: 80px 8% 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: -100px;
+            right: -120px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle at center, rgba(8, 144, 234, 0.08), transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 80px;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-brand {
+            max-width: 380px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-logo-inline {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 4px;
+            margin-right: 10px;
+            vertical-align: middle;
+            transform: translateY(-2px);
+            transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .footer-logo-inline:hover {
+            transform: translateY(-2px) scale(1.05);
+            border-color: rgba(8, 144, 234, 0.25);
+            background: rgba(8, 144, 234, 0.08);
+        }
+
+        .footer-brand h3 {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .footer-brand h3 span {
+            background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-brand p {
+            max-width: 340px;
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-top: 10px;
+            line-height: 1.7;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 100px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links h4 {
+            color: var(--text);
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .footer-links a {
+            display: block;
+            color: var(--muted);
+            font-size: 0.95rem;
+            text-decoration: none;
+            margin: 6px 0;
+            transition: color 0.25s ease;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0%;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-soft);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding-top: 25px;
+            font-size: 0.9rem;
+            color: var(--muted);
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-bottom a {
+            color: var(--accent-soft);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--text);
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="nav-inner">
+            <div class="brand">
+                <div class="brand-mark">
+                    <img src="/S.png" alt="Logo" />
+                </div>
+                <div class="brand-text">
+                    <div class="brand-title">Solvex Studios</div>
+                    <div class="brand-sub">Partners</div>
+                </div>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="https://solvexs.xyz/apps">Apps</a></li>
+                    <li><a href="https://solvexs.xyz/about">About</a></li>
+                    <li><a href="https://solvexs.xyz/projects">Projects</a></li>
+                </ul>
+
+                <a href="https://discord.gg/FpXhZxRj" class="nav-cta">Discord</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h1>Official <span>Partners & Sponsors</span></h1>
+        <p class="intro">
+            Verified collaborations and sponsors powering Solvex Studios projects and ecosystems — built on trust,
+            style, and technical precision.
+        </p>
+
+        <div id="partner-grid" class="partner-grid"></div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>
+                    <img src="/S.png" alt="Solvex Studios Logo" class="footer-logo-inline" />
+                    Solvex <span>Studios</span>
+                </h3>
+                <p>
+                    Precision-crafted systems and design — from intelligent Discord automation to sleek web platforms
+                    built for performance.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <div>
+                    <h4>Product</h4>
+                    <a href="#systems">Systems</a>
+                    <a href="#vision">Framework</a>
+                    <a href="https://discord.gg/FpXhZxRj">Support</a>
+                </div>
+                <div>
+                    <h4>Company</h4>
+                    <a href="https://solvexs.xyz/status">Status</a>
+                    <a href="https://solvexs.xyz/partners">Partners</a>
+                    <a href="https://solvexs.xyz/careers">Careers</a>
+                </div>
+                <div>
+                    <h4>Connect</h4>
+                    <a href="https://discord.gg/FpXhZxRj">Discord</a>
+                    <a href="#">GitHub</a>
+                    <a href="https://discord.gg/FpXhZxRj">Contact</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 Solvex Studios. All rights reserved.</p>
+            <p>Engineered with precision by
+                <a href="https://solvexs.xyz" target="_blank" class="link">Solvex Studios</a>
+                owner
+                <a href="https://discord.gg/FpXhZxRj" target="_blank" class="link">YK.JEREME</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const partners = [
+            {
+                name: "CoreForge",
+                type: "Partner",
+                desc: "True All-in-One bot, that has multiple different modules, such as Moderation, Utility, Auto-Moderation, and more!",
+                links: [
+                    { name: "Website", url: "https://coreforge.dev/" },
+                    { name: "Discord", url: "https://discord.gg/coreforge" }
+                ]
+            },
+            {
+                name: "Needs Filling",
+                type: "N/A",
+                desc: "Apply to fill this spot as a partner or sponsor collaborating with Solvex Studios. Apply in our Discord!",
+                links: [
+                    { name: "Apply", url: "https://discord.com/channels/1398037846736240660/1434248179783565312" }
+                ]
+            },
+            {
+                name: "Needs Filling",
+                type: "N/A",
+                desc: "Apply to fill this spot as a partner or sponsor collaborating with Solvex Studios. Apply in our Discord!",
+                links: [
+                    { name: "Apply", url: "https://discord.com/channels/1398037846736240660/1434248179783565312" }
+                ]
+            }
+        ];
+
+        const typeColors = {
+            "N/A": ["#ef4444", "#b91c1c"],
+            "Partner": ["#16a34a", "#22c55e"],
+            "Sponsor": ["#f97316", "#ea580c"],
+            "Affiliate": ["#8b5cf6", "#a855f7"]
+        };
+
+        const grid = document.getElementById("partner-grid");
+
+        partners.forEach(p => {
+            const colors = typeColors[p.type] || ["#737373", "#525252"];
+            const card = document.createElement("div");
+            card.className = "partner-card";
+            card.style.setProperty("--accent1", colors[0]);
+            card.style.setProperty("--accent2", colors[1]);
+
+            card.innerHTML = `
+      <div class="partner-header">
+        <div class="partner-name">${p.name}</div>
+        <div class="partner-type">${p.type}</div>
+      </div>
+      <p class="partner-desc">${p.desc}</p>
+      <div class="partner-links">
+        ${p.links.map(l => `<a href="${l.url}" target="_blank" class="link-btn">${l.name}</a>`).join("")}
+      </div>
+    `;
+
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+
+</html>

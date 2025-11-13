@@ -5,8 +5,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Solvex Studios — System Status</title>
+    <meta name="description"
+        content="Solvex Studios System Status provides real-time updates on the operational status of our services and infrastructure." />
     <link rel="icon" type="image/png" href="S.png" />
-    <meta name="theme-color" content="#0890ea" />
+    <link rel="apple-touch-icon" href="S.png" />
+    <link rel="shortcut icon" href="S.png" />
+    <meta name="theme-color" content="#3aa0ff" />
     <style>
         :root {
             --bg: #050505;
@@ -187,19 +191,21 @@
         main {
             max-width: 1120px;
             margin: 0 auto;
-            padding: calc(var(--nav-height)+80px) 20px 100px
+            padding: calc(var(--nav-height) + 60px) 20px 80px;
         }
 
         h1 {
             text-align: center;
-            font-size: 42px;
-            letter-spacing: 0.08em;
+            font-size: clamp(28px, 5vw, 44px);
             text-transform: uppercase;
-            margin-bottom: 10px
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
         }
 
         h1 span {
-            color: var(--accent-soft)
+            background: linear-gradient(90deg, #1687a3, #0bd2f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .subtitle {

@@ -609,60 +609,82 @@
             }
         }
 
-
         ::-webkit-scrollbar {
             display: none
         }
 
-                .popup-overlay {
+        .popup-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.75);
             backdrop-filter: blur(6px);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            animation: fadeIn 0.4s ease forwards;
+            animation: fadeIn 0.35s ease forwards;
         }
 
         .popup {
-            background: #141414;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
+            background: #0b0f19;
+            border: 1px solid rgba(90, 150, 255, 0.25);
+            border-radius: 18px;
             padding: 40px 36px;
+            width: min(460px, 90%);
             text-align: center;
-            max-width: 420px;
-            box-shadow: 0 0 60px rgba(0, 0, 0, 0.4);
-            animation: scaleIn 0.3s ease forwards;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            animation: scaleIn 0.35s ease forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .popup::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 100%;
+            background: linear-gradient(90deg, #3aa0ff, #6db7ff);
+            animation: slideBar 3s linear infinite;
         }
 
         .popup h2 {
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             margin-bottom: 14px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #3aa0ff, #6db7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .popup p {
-            color: #9ca3af;
+            color: #b3c4d6;
             line-height: 1.6;
             font-size: 1rem;
             margin-bottom: 28px;
         }
 
         .popup button {
-            background: #fff;
-            color: #000;
-            font-weight: 600;
-            border: none;
-            padding: 12px 28px;
+            background: #1a2538;
+            color: #d6e9ff;
+            border: 1px solid rgba(90, 150, 255, 0.35);
             border-radius: 12px;
+            padding: 12px 28px;
+            font-size: 0.95rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.28s ease;
         }
 
         .popup button:hover {
-            background: #e5e5e5;
             transform: translateY(-1px);
+            background: #22304b;
+            border-color: rgba(110, 170, 255, 0.6);
+        }
+
+        .popup button:active {
+            transform: scale(0.97);
         }
 
         @keyframes fadeIn {
@@ -676,14 +698,24 @@
         }
 
         @keyframes scaleIn {
-            from {
-                transform: scale(0.95);
+            0% {
+                transform: scale(0.88);
                 opacity: 0;
             }
 
-            to {
+            100% {
                 transform: scale(1);
                 opacity: 1;
+            }
+        }
+
+        @keyframes slideBar {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
             }
         }
     </style>
@@ -781,7 +813,7 @@
         </div>
     </footer>
 
-        <div id="devPopup" class="popup-overlay">
+    <div id="devPopup" class="popup-overlay">
         <div class="popup">
             <h2>🚧 Under Development</h2>
             <p>Solvex is currently in active development. Some features or sections may be incomplete or unavailable. As
@@ -792,10 +824,6 @@
 
     <script>
         document.getElementById("year").textContent = new Date().getFullYear();
-
-        document.getElementById("closePopup").addEventListener("click", () => {
-            document.getElementById("devPopup").style.display = "none";
-        });
     </script>
 
     <script>

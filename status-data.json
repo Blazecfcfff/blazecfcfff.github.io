@@ -2,24 +2,10 @@
   "incidents": [
     {
       "id": "INC-001",
-      "title": "Temporary API Latency",
-      "status": "resolved",
-      "description": "Increased latency observed on Dashboard API endpoints due to high load. Issue mitigated within 20 minutes.",
-      "timestamp": "2025-11-11T14:32:00Z"
-    },
-    {
-      "id": "INC-002",
-      "title": "Database Connection Warnings",
-      "status": "monitoring",
-      "description": "Some intermittent database timeouts were detected. Engineers are monitoring connection stability.",
-      "timestamp": "2025-11-12T04:15:00Z"
-    },
-    {
-      "id": "INC-003",
-      "title": "CDN Slow Response",
+      "title": "Bot in development experiencing intermittent crashes",
       "status": "investigating",
-      "description": "Reports of slow image loading via Discord CDN are being investigated by upstream providers.",
-      "timestamp": "2025-11-12T10:00:00Z"
+      "description": "Bot is in development and experiencing intermittent crashes affecting some users.",
+      "timestamp": "2025-11-11T14:32:00Z"
     }
   ]
 }

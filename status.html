@@ -821,7 +821,7 @@
         const services = [
             { name: "Main Website", url: "https://solvexs.xyz" },
             { name: "Status Website", url: "https://solvexs.xyz/status" },
-            { name: "Discord Bot", url: "https://discord.com/api/user/1437571811653980200" }
+            { name: "Database", url: "mongodb+srv://solvex:ss454@cluster0.ne110gw.mongodb.net/?appName=Cluster0" },
         ];
         const grid = document.getElementById("grid");
         const summary = document.getElementById("summary");
@@ -839,7 +839,6 @@
       <div class="status-name">${svc.name}</div>
       <div class="status-indicator"><div class="dot"></div><span>Checking...</span></div>
     </div>
-    <div class="status-desc">${svc.url}</div>
     <div class="ping">Ping: --</div>
     <div class="uptime-bar"><div class="uptime-fill"></div></div>
   `;
